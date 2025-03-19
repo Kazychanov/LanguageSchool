@@ -1,0 +1,21 @@
+﻿<Window x:Class="LanguageSchoolTR14WR.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LanguageSchoolTR14WR"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="450" MinWidth="800" FontFamily="Comic Sans MS" Icon="img/school_logo.ico">
+  <Grid Background="#FFE7FABF">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="75"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+    <Image Source="img/school_logo.png" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+    <TextBlock Text="Лангуаге" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+    <Button Content="Назад" Name="BackBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BackBtn_Click"/>
+
+    <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"/>
+  </Grid>
+</Window>

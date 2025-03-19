@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DE824322-5039-4065-84B7-AD32158F71EA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>LanguageSchoolTR14WR</RootNamespace>
+    <AssemblyName>LanguageSchoolTR14WR</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Client.cs">
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClientService.cs">
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentByService.cs">
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Gender.cs">
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LanguageSchool.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Manager.cs" />
+    <Compile Include="Manufacturer.cs">
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Product.cs">
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductPhoto.cs">
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductSale.cs">
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service.cs">
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServicePhoto.cs">
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tag.cs">
+      <DependentUpon>LanguageSchool.tt</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LanguageSchool.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LanguageSchool.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LanguageSchool.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LanguageSchool.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="PeoplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PeoplePage.xaml.cs">
+      <DependentUpon>PeoplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EntityDeploy Include="LanguageSchool.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LanguageSchool.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="LanguageSchool.edmx.diagram">
+      <DependentUpon>LanguageSchool.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\school_logo.ico" />
+    <Resource Include="img\school_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\1.jpg" />
+    <Resource Include="img\10.jpg" />
+    <Resource Include="img\11.jpg" />
+    <Resource Include="img\12.jpg" />
+    <Resource Include="img\13.jpg" />
+    <Resource Include="img\14.jpg" />
+    <Resource Include="img\15.jpg" />
+    <Resource Include="img\16.jpg" />
+    <Resource Include="img\17.jpg" />
+    <Resource Include="img\18.jpg" />
+    <Resource Include="img\19.jpg" />
+    <Resource Include="img\2.jpg" />
+    <Resource Include="img\20.jpg" />
+    <Resource Include="img\21.jpg" />
+    <Resource Include="img\22.jpg" />
+    <Resource Include="img\23.jpg" />
+    <Resource Include="img\24.jpg" />
+    <Resource Include="img\25.jpg" />
+    <Resource Include="img\26.jpg" />
+    <Resource Include="img\27.jpg" />
+    <Resource Include="img\28.jpg" />
+    <Resource Include="img\29.jpg" />
+    <Resource Include="img\3.jpg" />
+    <Resource Include="img\30.jpg" />
+    <Resource Include="img\31.jpg" />
+    <Resource Include="img\32.jpg" />
+    <Resource Include="img\33.jpg" />
+    <Resource Include="img\34.jpg" />
+    <Resource Include="img\35.jpg" />
+    <Resource Include="img\36.jpg" />
+    <Resource Include="img\37.jpg" />
+    <Resource Include="img\38.jpg" />
+    <Resource Include="img\39.jpg" />
+    <Resource Include="img\4.jpg" />
+    <Resource Include="img\40.jpg" />
+    <Resource Include="img\41.jpg" />
+    <Resource Include="img\42.jpg" />
+    <Resource Include="img\43.jpg" />
+    <Resource Include="img\44.jpg" />
+    <Resource Include="img\47.jpg" />
+    <Resource Include="img\48.jpg" />
+    <Resource Include="img\5.jpg" />
+    <Resource Include="img\6.jpg" />
+    <Resource Include="img\7.jpg" />
+    <Resource Include="img\8.jpg" />
+    <Resource Include="img\9.jpg" />
+    <Resource Include="img\m1.jpg" />
+    <Resource Include="img\m10.jpg" />
+    <Resource Include="img\m11.jpg" />
+    <Resource Include="img\m12.jpg" />
+    <Resource Include="img\m13.jpg" />
+    <Resource Include="img\m14.jpg" />
+    <Resource Include="img\m15.jpg" />
+    <Resource Include="img\m16.jpg" />
+    <Resource Include="img\m17.jpg" />
+    <Resource Include="img\m18.jpg" />
+    <Resource Include="img\m19.jpg" />
+    <Resource Include="img\m2.jpg" />
+    <Resource Include="img\m20.jpg" />
+    <Resource Include="img\m21.jpg" />
+    <Resource Include="img\m22.jpg" />
+    <Resource Include="img\m23.jpg" />
+    <Resource Include="img\m24.jpg" />
+    <Resource Include="img\m25.jpg" />
+    <Resource Include="img\m26.jpg" />
+    <Resource Include="img\m27.jpg" />
+    <Resource Include="img\m28.jpg" />
+    <Resource Include="img\m29.jpg" />
+    <Resource Include="img\m3.jpg" />
+    <Resource Include="img\m30.jpg" />
+    <Resource Include="img\m31.jpg" />
+    <Resource Include="img\m32.jpg" />
+    <Resource Include="img\m33.jpg" />
+    <Resource Include="img\m34.jpg" />
+    <Resource Include="img\m35.jpg" />
+    <Resource Include="img\m36.jpg" />
+    <Resource Include="img\m37.jpg" />
+    <Resource Include="img\m38.jpg" />
+    <Resource Include="img\m39.jpg" />
+    <Resource Include="img\m4.jpg" />
+    <Resource Include="img\m40.jpg" />
+    <Resource Include="img\m41.jpg" />
+    <Resource Include="img\m42.jpg" />
+    <Resource Include="img\m43.jpg" />
+    <Resource Include="img\m44.jpg" />
+    <Resource Include="img\m45.jpg" />
+    <Resource Include="img\m46.jpg" />
+    <Resource Include="img\m47.jpg" />
+    <Resource Include="img\m48.jpg" />
+    <Resource Include="img\m49.jpg" />
+    <Resource Include="img\m5.jpg" />
+    <Resource Include="img\m50.jpg" />
+    <Resource Include="img\m6.jpg" />
+    <Resource Include="img\m7.jpg" />
+    <Resource Include="img\m8.jpg" />
+    <Resource Include="img\m9.jpg" />
+    <Resource Include="img\m96.jpg" />
+    <Resource Include="img\m97.jpg" />
+    <Resource Include="img\m98.jpg" />
+    <Resource Include="img\m99.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LanguageSchool.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LanguageSchool.Context.cs</LastGenOutput>
+      <DependentUpon>LanguageSchool.edmx</DependentUpon>
+    </Content>
+    <Content Include="LanguageSchool.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LanguageSchool.edmx</DependentUpon>
+      <LastGenOutput>LanguageSchool.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
