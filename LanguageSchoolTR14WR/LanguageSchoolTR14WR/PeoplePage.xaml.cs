@@ -31,28 +31,83 @@ namespace LanguageSchoolTR14WR
       InitializeComponent();
       TableList = MRLanguageSchoolEntities.GetContext().Client.ToList();
       CountPeopleCBox.SelectedIndex = 0;
+      GenderCBox.SelectedIndex = 0;
+      SortCBox.SelectedIndex = 0;
+
       UpdatePeople(); 
     }
 
     public void UpdatePeople()
     {
-      TableList = MRLanguageSchoolEntities.GetContext().Client.ToList();
-      ChangePage(0, 0); // Сбрасываем на первую страницу
+      var currentUpdatePeople = MRLanguageSchoolEntities.GetContext().Client.ToList();
+
+      switch (GenderCBox.SelectedIndex)
+      {
+        case 0:
+          currentUpdatePeople = MRLanguageSchoolEntities.GetContext().Client.ToList(); break;
+        case 1:
+          currentUpdatePeople = currentUpdatePeople.Where(x => x.GenderName == "мужской").ToList(); break;
+        case 2:
+          currentUpdatePeople = currentUpdatePeople.Where(x => x.GenderName == "женский").ToList(); break;
+      }
+
+      switch (SortCBox.SelectedIndex)
+      {
+        case 0:
+          currentUpdatePeople = currentUpdatePeople.ToList(); break;
+        case 1:
+          currentUpdatePeople = currentUpdatePeople.OrderBy(x => x.LastName).ToList(); break;
+        case 2:
+          currentUpdatePeople = currentUpdatePeople
+              .OrderByDescending(x => DateTime.TryParse(x.LastEntry, out var date) ? date : DateTime.MinValue)
+              .ToList(); break;
+        case 3:
+          currentUpdatePeople = currentUpdatePeople.OrderByDescending(x => x.VisitCount).ToList(); break;
+      }
+
+      if (!string.IsNullOrWhiteSpace(SearchTBox.Text))
+      {
+        string searchText = SearchTBox.Text.ToLower();
+        currentUpdatePeople = currentUpdatePeople.Where(x =>
+            (x.Phone != null && x.Phone.Replace("(", "").Replace(")", "").Replace("(", "").Replace("-", "")
+            .Contains(searchText)) ||
+            (x.FirstName != null && x.FirstName.ToLower().Contains(searchText)) ||
+            (x.LastName != null && x.LastName.ToLower().Contains(searchText)) ||
+            (x.Patronymic != null && x.Patronymic.ToLower().Contains(searchText)) ||
+            (x.Email != null && x.Email.ToLower().Contains(searchText))
+        ).ToList();
+      }
+
+      if (IsBirthdayThisMonth.IsChecked.Value)
+      {
+        currentUpdatePeople = currentUpdatePeople.Where(x => x.Birthday.Date.Month == DateTime.Now.Month).ToList();
+      }
+
+      var sum = MRLanguageSchoolEntities.GetContext().Client.ToList();
+      TBCount.Text = currentUpdatePeople.Count().ToString();
+      TBAllRecords.Text = " из " + sum.Count();
+
+      PeopleLV.ItemsSource = currentUpdatePeople;
+      TableList = currentUpdatePeople;
+      ChangePage(0, 0);
     }
 
     private void GenderCBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-
+      UpdatePeople();
     }
-
+    private void SearchTBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+      UpdatePeople();
+    }
     private void SortCBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-
+      UpdatePeople();
     }
 
     private void IsBirthdayThisMonth_Checked(object sender, RoutedEventArgs e)
     {
-
+      UpdatePeople();
     }
 
     private void DeleteBtn_Click(object sender, RoutedEventArgs e)
@@ -100,17 +155,15 @@ namespace LanguageSchoolTR14WR
       currentPageList.Clear();
       CountRecord = TableList.Count;
 
-      // Определяем количество записей на странице
-      int itemsPerPage = 10; // по умолчанию
+      int itemsPerPage = 10; 
       switch (CountPeopleCBox.SelectedIndex)
       {
         case 0: itemsPerPage = 10; break;
         case 1: itemsPerPage = 50; break;
         case 2: itemsPerPage = 200; break;
-        case 3: itemsPerPage = CountRecord; break; // "Все"
+        case 3: itemsPerPage = CountRecord; break;
       }
 
-      // Вычисляем количество страниц
       CountPage = itemsPerPage > 0 ? (int)Math.Ceiling((double)CountRecord / itemsPerPage) : 1;
 
       bool ifUpdate = true;
@@ -132,7 +185,7 @@ namespace LanguageSchoolTR14WR
       {
         switch (direction)
         {
-          case 1: // Назад
+          case 1: 
             if (CurrentPage > 0)
             {
               CurrentPage--;
@@ -147,7 +200,7 @@ namespace LanguageSchoolTR14WR
               ifUpdate = false;
             }
             break;
-          case 2: // Вперед
+          case 2:
             if (CurrentPage < CountPage - 1)
             {
               CurrentPage++;
@@ -167,7 +220,6 @@ namespace LanguageSchoolTR14WR
 
       if (ifUpdate)
       {
-        // Обновляем список страниц
         PageListBox.Items.Clear();
         for (int i = 1; i <= CountPage; i++)
         {
@@ -175,14 +227,10 @@ namespace LanguageSchoolTR14WR
         }
         PageListBox.SelectedIndex = CurrentPage;
 
-        // Обновляем информацию о записях
         min = Math.Min(CurrentPage * itemsPerPage + itemsPerPage, CountRecord);
-        TBCount.Text = $"{CurrentPage * itemsPerPage + 1}-{min}";
-        TBAllRecords.Text = $" из {CountRecord}";
 
-        // Ключевое исправление - обновляем источник данных ListView
-        PeopleLV.ItemsSource = null; // Сначала очищаем
-        PeopleLV.ItemsSource = currentPageList; // Затем устанавливаем новый источник
+        PeopleLV.ItemsSource = null; 
+        PeopleLV.ItemsSource = currentPageList; 
       }
     }
 
@@ -190,5 +238,7 @@ namespace LanguageSchoolTR14WR
     {
       ChangePage(0, 0);
     }
+
+
   }
 }

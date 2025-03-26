@@ -16,25 +16,24 @@
     </Grid.RowDefinitions>
     <!--СОРТИРОВКА-->
     <StackPanel Orientation="Horizontal" Grid.Row="0">
-      <ComboBox Name="GenderCBox" Width="150" Height="20" Margin="5" FontSize="20" SelectionChanged="GenderCBox_SelectionChanged">
+
+      <TextBox Name="SearchTBox" Margin="5" Width="200" Height="30" FontSize="20" TextChanged="SearchTBox_TextChanged"/>
+
+      <ComboBox Name="GenderCBox" Width="150" Height="30" Margin="5" FontSize="15" SelectionChanged="GenderCBox_SelectionChanged">
         <ComboBoxItem Content="Все"/>
         <ComboBoxItem Content="Мужской"/>
-        <ComboBoxItem Content="Женсикй"/>
+        <ComboBoxItem Content="Женский"/>
       </ComboBox>
 
-      <TextBox Name="SearchTBox" Margin="5" Width="200" Height="20" FontSize="20"/>
-
-      <ComboBox Name="SortCBox" Width="150" Height="20" Margin="5" FontSize="20" SelectionChanged="SortCBox_SelectionChanged">
+      <ComboBox Name="SortCBox" Width="150" Height="30" Margin="5" FontSize="15" SelectionChanged="SortCBox_SelectionChanged">
         <ComboBoxItem Content="Все"/>
-        <ComboBoxItem Content="По имени (а-я)"/>
-        <ComboBoxItem Content="По имени (я-а)"/>
-        <ComboBoxItem Content="Последнее посещение (я-а)"/>
-        <ComboBoxItem Content="Последнее посещение (я-а)"/>
-        <ComboBoxItem Content="По кол-ву посещений (я-а)"/>
-        <ComboBoxItem Content="По кол-ву посещений (я-а)"/>
-
-        <RadioButton Name="IsBirthdayThisMonth" Content="ДР в этом месяце" Checked="IsBirthdayThisMonth_Checked" Margin="5"/>
+        <ComboBoxItem Content="По фамилии (а-я)"/>
+        <ComboBoxItem Content="Последнее посещение (убывание)"/>
+        <ComboBoxItem Content="По кол-ву посещений (убывание)"/>
       </ComboBox>
+
+      <RadioButton Name="IsBirthdayThisMonth" Content="ДР в этом месяце" FontSize="15" Checked="IsBirthdayThisMonth_Checked" Margin="5" VerticalAlignment="Center"/>
+
     </StackPanel>
       
 
