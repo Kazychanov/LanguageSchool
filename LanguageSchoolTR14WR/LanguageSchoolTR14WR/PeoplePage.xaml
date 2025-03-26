@@ -10,23 +10,51 @@
 
     <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="75"/>
+      <RowDefinition Height="auto"/>
       <RowDefinition Height="*"/>
+      <RowDefinition Height="auto"/>
     </Grid.RowDefinitions>
+    <!--СОРТИРОВКА-->
+    <StackPanel Orientation="Horizontal" Grid.Row="0">
+      <ComboBox Name="GenderCBox" Width="150" Height="20" Margin="5" FontSize="20" SelectionChanged="GenderCBox_SelectionChanged">
+        <ComboBoxItem Content="Все"/>
+        <ComboBoxItem Content="Мужской"/>
+        <ComboBoxItem Content="Женсикй"/>
+      </ComboBox>
+
+      <TextBox Name="SearchTBox" Margin="5" Width="200" Height="20" FontSize="20"/>
+
+      <ComboBox Name="SortCBox" Width="150" Height="20" Margin="5" FontSize="20" SelectionChanged="SortCBox_SelectionChanged">
+        <ComboBoxItem Content="Все"/>
+        <ComboBoxItem Content="По имени (а-я)"/>
+        <ComboBoxItem Content="По имени (я-а)"/>
+        <ComboBoxItem Content="Последнее посещение (я-а)"/>
+        <ComboBoxItem Content="Последнее посещение (я-а)"/>
+        <ComboBoxItem Content="По кол-ву посещений (я-а)"/>
+        <ComboBoxItem Content="По кол-ву посещений (я-а)"/>
+
+        <RadioButton Name="IsBirthdayThisMonth" Content="ДР в этом месяце" Checked="IsBirthdayThisMonth_Checked" Margin="5"/>
+      </ComboBox>
+    </StackPanel>
+      
+
+
+    <!--ЛИСТЬЮ-->
     <ListView Name="PeopleLV" Grid.Row="1">
       <ListView.ItemTemplate>
         <DataTemplate>
           <Grid>
             <Grid.RowDefinitions>
-              <RowDefinition Height="35"/>
-              <RowDefinition Height="35"/>
-              <RowDefinition Height="35"/>
-              <RowDefinition Height="35"/>
-              <RowDefinition Height="35"/>
+              <RowDefinition Height="auto"/>
+              <RowDefinition Height="auto"/>
+              <RowDefinition Height="auto"/>
+              <RowDefinition Height="auto"/>
+              <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="auto"/>
-              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="600"/>
+              <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Image Width="200" Grid.RowSpan="5" Grid.Column="0">
               <Image.Source>
@@ -69,9 +97,40 @@
               <TextBlock Margin="5" FontSize="20" Text="Кол-во посещения: "/>
               <TextBlock Margin="5" FontSize="20" Text="{Binding VisitCount}"/>
             </StackPanel>
+
+            <Button Name="DeleteBtn" Content="Удалить" Margin="5" Grid.Row="2" Grid.Column="2"  Click="DeleteBtn_Click"/>
           </Grid>
         </DataTemplate>
       </ListView.ItemTemplate>
-    </ListView> 
-    </Grid>
+    </ListView>
+
+      
+     
+     <!--ПОСТРАНИЧНЫЙ ВЫВОД-->
+    <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+
+      <TextBlock Name="TBCount" FontSize="20" Margin="5"/>
+      <TextBlock Name="TBAllRecords" FontSize="20" Margin="5"/>
+
+      <TextBlock Text="Выводить по " Margin="5" FontSize="20"/>
+      <ComboBox Name="CountPeopleCBox" Width="150" Height="30" FontSize="20" Margin="5" SelectionChanged="CountPeopleCBox_SelectionChanged">
+        <ComboBoxItem Content="10"/>
+        <ComboBoxItem Content="50"/>
+        <ComboBoxItem Content="200"/>
+        <ComboBoxItem Content="Все"/>
+      </ComboBox>
+
+
+      <Button Name="LeftDirBtn" Content="&lt;" Width="30" Margin="5" FontSize="20" Click="LeftDirBtn_Click"/>
+      <ListBox Name="PageListBox" Margin="5" FontSize="20" MouseUp="PageListBox_MouseUp">
+        <ListBox.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel Orientation="Horizontal"/>
+          </ItemsPanelTemplate>
+        </ListBox.ItemsPanel>
+      </ListBox>
+      <Button Name="RightDirBtn" Content="&gt;" Width="30" Margin="5" FontSize="20" Click="RightDirBtn_Click"/>
+    </StackPanel>
+
+  </Grid>
 </Page>
