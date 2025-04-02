@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,18 +32,20 @@ namespace LanguageSchoolTR14WR
       }
       DataContext = currentPeople;
 
-      if (currentPeople.GenderCode == "м")
-      {
-        MaleRBtn.IsChecked = true;
-      }
-      else if (currentPeople.GenderCode == "ж")
+      if (currentPeople.GenderCode == "ж")
       {
         FemaleRBtn.IsChecked = true;
       }
+      else
+      {
+        MaleRBtn.IsChecked = true;
+      }
+
       if (currentPeople.ID == 0)
       {
         IDTBlock.Visibility = Visibility.Hidden;
         IDTBox.Visibility = Visibility.Hidden;
+        currentPeople.Birthday = DateTime.Now;
       }
     }
 
@@ -52,33 +55,47 @@ namespace LanguageSchoolTR14WR
 
       if (string.IsNullOrWhiteSpace(currentPeople.LastName))
         errors.AppendLine("Укажите фамилию клиента");
+      if (currentPeople.LastName.Count() > 50)
+        errors.AppendLine("Превышен лимит символов фамилии");
       if (string.IsNullOrWhiteSpace(currentPeople.FirstName))
         errors.AppendLine("Укажите имя клиента");
+      if (currentPeople.FirstName.Count() > 50)
+        errors.AppendLine("Превышен лимит символов имени");
       if (string.IsNullOrWhiteSpace(currentPeople.Patronymic))
         errors.AppendLine("Укажите отчество клиента");
+      if (currentPeople.Patronymic.Count() > 50)
+        errors.AppendLine("Превышен лимит символов отчества");
       if (string.IsNullOrWhiteSpace(BirthdayDPicker.Text))
         errors.AppendLine("Укажите дату рождения клиента");
+
+      if (currentPeople.RegistrationDate != null)
+      {
+        currentPeople.RegistrationDate = DateTime.Now;
+      }
+
       if (string.IsNullOrWhiteSpace(currentPeople.Email))
       {
         errors.AppendLine("Укажите email клиента");
       }
       else
       {
-        // Примитивная проверка email
-        if (!System.Text.RegularExpressions.Regex.IsMatch(currentPeople.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+        if (!Regex.IsMatch(currentPeople.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
         {
           errors.AppendLine("Укажите корректный email клиента");
         }
       }
+
       if (string.IsNullOrWhiteSpace(currentPeople.Phone))
         errors.AppendLine("Укажите номер клиента");
       else
       {
-        string ph = currentPeople.Phone.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "").Replace("+", "");
-        if (((ph[1] == '9' || ph[1] == '4' || ph[1] == '8') && ph.Length != 11 && (ph[0] == '7' || ph[0] == '8'))
-            || (ph[1] == '3' && ph.Length != 12) && (ph[0] == '7' || ph[0] == '8'))
-          errors.AppendLine("Укажите правильно телефон клиента");
+        string cleanedNumber = Regex.Replace(currentPeople.Phone, @"[^\d+]", "");
+        if (!Regex.IsMatch(cleanedNumber, @"^(\+7|7|8)?[\d]{10}$"))
+        {
+          errors.AppendLine("Укажите корректный телефон клиента");
+        }
       }
+
       currentPeople.Birthday = Convert.ToDateTime(BirthdayDPicker.Text);
       if (FemaleRBtn.IsChecked == true)
       {
