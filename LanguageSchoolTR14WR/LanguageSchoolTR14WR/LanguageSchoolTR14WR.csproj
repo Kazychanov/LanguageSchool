@@ -64,6 +64,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddEditPeoplePage.xaml.cs">
+      <DependentUpon>AddEditPeoplePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Client.cs">
       <DependentUpon>LanguageSchool.tt</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
     <Compile Include="Tag.cs">
       <DependentUpon>LanguageSchool.tt</DependentUpon>
     </Compile>
+    <Page Include="AddEditPeoplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -274,6 +281,7 @@
     <Resource Include="img\m99.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="img\picture.png" />
     <Content Include="LanguageSchool.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>LanguageSchool.Context.cs</LastGenOutput>

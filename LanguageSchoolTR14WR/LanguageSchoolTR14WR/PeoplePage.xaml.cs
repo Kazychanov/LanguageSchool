@@ -239,6 +239,26 @@ namespace LanguageSchoolTR14WR
       ChangePage(0, 0);
     }
 
+    private void Addbtn_Click(object sender, RoutedEventArgs e)
+    {
+      Manager.MainFrame.Navigate(new AddEditPeoplePage(null));
 
+    }
+
+    private void EditBtn_Click(object sender, RoutedEventArgs e)
+    {
+      Manager.MainFrame.Navigate(new AddEditPeoplePage((sender as Button).DataContext as Client));
+    }
+
+    private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+      
+      if (Visibility == Visibility.Visible)
+      {
+        MRLanguageSchoolEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
+        UpdatePeople();
+
+      }
+    }
   }
 }

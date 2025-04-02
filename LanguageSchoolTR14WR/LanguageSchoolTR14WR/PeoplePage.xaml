@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:LanguageSchoolTR14WR"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PeoplePage" FontFamily="Comic Sans MS">
+      Title="PeoplePage" FontFamily="Comic Sans MS" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
     <Grid.RowDefinitions>
@@ -60,12 +60,13 @@
                 <Binding Path="PhotoPath">
                   <Binding.TargetNullValue>
                     <ImageSource>
-                      img/1.jpg
+                      img/picture.png
                     </ImageSource>
                   </Binding.TargetNullValue>
                 </Binding>
                 </Image.Source>
             </Image>
+            
             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
               <TextBlock Margin="5" FontSize="20" Text="ID: "/>
               <TextBlock Margin="5" FontSize="20" Text="{Binding ID}"/>
@@ -73,23 +74,26 @@
               <TextBlock Margin="5" FontSize="20" Text="{Binding FirstName}"/>
               <TextBlock Margin="5" FontSize="20" Text="{Binding Patronymic}"/>
             </StackPanel>
+            
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
               <TextBlock Margin="5" FontSize="20" Text="Пол: "/>
               <TextBlock Margin="5" FontSize="20" Text="{Binding GenderName}"/>
               <TextBlock Margin="5" FontSize="20" Text="Дата рождения: "/>
               <TextBlock Margin="5" FontSize="20" Text="{Binding BirthdayString}"/>
-
             </StackPanel>
+            
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
               <TextBlock Margin="5" FontSize="20" Text="Телефон: "/>
               <TextBlock Margin="5" FontSize="20" Text="{Binding Phone}"/>
               <TextBlock Margin="5" FontSize="20" Text="Email: "/>
               <TextBlock Margin="5" FontSize="20" Text="{Binding Email}"/>
             </StackPanel>
+            
             <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
               <TextBlock Margin="5" FontSize="20" Text="Дата регистрации: "/>
               <TextBlock Margin="5" FontSize="20" Text="{Binding RegistrationDateString}"/>
             </StackPanel>
+            
             <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
               <TextBlock Margin="5" FontSize="20" Text="Последнее посещение: "/>
               <TextBlock Margin="5" FontSize="20" Text="{Binding LastEntry}"/>
@@ -98,6 +102,7 @@
             </StackPanel>
 
             <Button Name="DeleteBtn" Content="Удалить" Margin="5" Grid.Row="2" Grid.Column="2"  Click="DeleteBtn_Click"/>
+            <Button Name="EditBtn" Content="Редактировать" Margin="5" Grid.Row="3" Grid.Column="2"  Click="EditBtn_Click"/>
           </Grid>
         </DataTemplate>
       </ListView.ItemTemplate>
@@ -130,6 +135,6 @@
       </ListBox>
       <Button Name="RightDirBtn" Content="&gt;" Width="30" Margin="5" FontSize="20" Click="RightDirBtn_Click"/>
     </StackPanel>
-
+    <Button Name="Addbtn" Content="Добавить" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Click="Addbtn_Click"/>
   </Grid>
 </Page>
