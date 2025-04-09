@@ -45,7 +45,7 @@ namespace LanguageSchoolTR14WR
       {
         IDTBlock.Visibility = Visibility.Hidden;
         IDTBox.Visibility = Visibility.Hidden;
-        currentPeople.Birthday = DateTime.Now;
+        BirthdayDPicker.Text = "";
       }
     }
 
@@ -55,24 +55,27 @@ namespace LanguageSchoolTR14WR
 
       if (string.IsNullOrWhiteSpace(currentPeople.LastName))
         errors.AppendLine("Укажите фамилию клиента");
-      if (currentPeople.LastName.Count() > 50)
-        errors.AppendLine("Превышен лимит символов фамилии");
+      else
+      {
+        if (currentPeople.LastName.Count() > 50)
+          errors.AppendLine("Превышен лимит символов фамилии");
+      }
       if (string.IsNullOrWhiteSpace(currentPeople.FirstName))
         errors.AppendLine("Укажите имя клиента");
-      if (currentPeople.FirstName.Count() > 50)
-        errors.AppendLine("Превышен лимит символов имени");
+      else
+      {
+        if (currentPeople.FirstName.Count() > 50)
+          errors.AppendLine("Превышен лимит символов имени");
+      }
       if (string.IsNullOrWhiteSpace(currentPeople.Patronymic))
         errors.AppendLine("Укажите отчество клиента");
-      if (currentPeople.Patronymic.Count() > 50)
-        errors.AppendLine("Превышен лимит символов отчества");
+      else
+      {
+        if (currentPeople.Patronymic.Count() > 50)
+          errors.AppendLine("Превышен лимит символов отчества");
+      }
       if (string.IsNullOrWhiteSpace(BirthdayDPicker.Text))
         errors.AppendLine("Укажите дату рождения клиента");
-
-      if (currentPeople.RegistrationDate != null)
-      {
-        currentPeople.RegistrationDate = DateTime.Now;
-      }
-
       if (string.IsNullOrWhiteSpace(currentPeople.Email))
       {
         errors.AppendLine("Укажите email клиента");
@@ -80,9 +83,7 @@ namespace LanguageSchoolTR14WR
       else
       {
         if (!Regex.IsMatch(currentPeople.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-        {
           errors.AppendLine("Укажите корректный email клиента");
-        }
       }
 
       if (string.IsNullOrWhiteSpace(currentPeople.Phone))
@@ -91,41 +92,39 @@ namespace LanguageSchoolTR14WR
       {
         string cleanedNumber = Regex.Replace(currentPeople.Phone, @"[^\d+]", "");
         if (!Regex.IsMatch(cleanedNumber, @"^(\+7|7|8)?[\d]{10}$"))
-        {
           errors.AppendLine("Укажите корректный телефон клиента");
-        }
       }
-
-      currentPeople.Birthday = Convert.ToDateTime(BirthdayDPicker.Text);
-      if (FemaleRBtn.IsChecked == true)
-      {
-        currentPeople.GenderCode = "ж";
-      }
-      else
-      {
-        currentPeople.GenderCode = "м";
-      }
-
 
       if (errors.Length > 0)
       {
         MessageBox.Show(errors.ToString());
         return;
       }
-
-      if (currentPeople.ID == 0)
+      else
       {
-        MRLanguageSchoolEntities.GetContext().Client.Add(currentPeople);
-      }
-      try
-      {
-        MRLanguageSchoolEntities.GetContext().SaveChanges();
-        MessageBox.Show("Информация сохранена");
-        Manager.MainFrame.GoBack();
-      }
-      catch (Exception ex)
-      {
-        MessageBox.Show(ex.Message.ToString());
+        currentPeople.Birthday = Convert.ToDateTime(BirthdayDPicker.Text);
+        if (FemaleRBtn.IsChecked == true)
+        {
+          currentPeople.GenderCode = "ж";
+        }
+        else
+        {
+          currentPeople.GenderCode = "м";
+        }
+        if (currentPeople.ID == 0)
+        {
+          MRLanguageSchoolEntities.GetContext().Client.Add(currentPeople);
+        }
+        try
+        {
+          MRLanguageSchoolEntities.GetContext().SaveChanges();
+          MessageBox.Show("Информация сохранена");
+          Manager.MainFrame.GoBack();
+        }
+        catch (Exception ex)
+        {
+          MessageBox.Show(ex.Message.ToString());
+        }
       }
 
 
@@ -133,12 +132,29 @@ namespace LanguageSchoolTR14WR
 
     private void ChangePhoto_Click(object sender, RoutedEventArgs e)
     {
-      OpenFileDialog myOpenFileDialog = new OpenFileDialog();
-      if (myOpenFileDialog.ShowDialog() == true)
       {
-        currentPeople.PhotoPath = myOpenFileDialog.FileName;
-        PhotoPeople.Source = new BitmapImage(new Uri(myOpenFileDialog.FileName));
+        OpenFileDialog myOpenFileDialog = new OpenFileDialog();
+
+        // Получаем путь к папке "Клиенты" в папке проекта.
+        string solutionPath = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)));
+
+        string clientsFolderPath = System.IO.Path.Combine(solutionPath, "img");
+
+        // Устанавливаем начальную директорию OpenFileDialog.
+        myOpenFileDialog.InitialDirectory = clientsFolderPath;
+
+        if (myOpenFileDialog.ShowDialog() == true)
+        {
+          string fileName = System.IO.Path.GetFileName(myOpenFileDialog.FileName);
+
+          // Используем относительный путь относительно папки "Клиенты"
+          string baseDirectory = "img";
+          currentPeople.PhotoPath = System.IO.Path.Combine(baseDirectory, fileName);
+
+          PhotoPeople.Source = new BitmapImage(new Uri(myOpenFileDialog.FileName));
+        }
       }
     }
   }
 }
+
